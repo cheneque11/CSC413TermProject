@@ -1,5 +1,4 @@
 package edu.csc413.tankgame.model;
-
 /**
  * Model class representing a tank in the game. A tank has a position and an angle. It has a movement speed and a turn
  * speed, both represented below as constants.
@@ -29,6 +28,7 @@ public abstract class Tank extends Entity{
     // protected. You should not be calling these methods directly from outside the Tank class hierarchy. Instead,
     // consider how to design your Tank class(es) so that a Tank can represent both a player-controlled tank and an AI
     // controlled tank.
+
     @Override
     public void move(GameState gameState){
 

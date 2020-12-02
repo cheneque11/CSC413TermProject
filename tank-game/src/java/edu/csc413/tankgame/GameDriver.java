@@ -1,15 +1,16 @@
 package edu.csc413.tankgame;
 
-import com.sun.tools.javac.Main;
-import edu.csc413.tankgame.model.*;
+import edu.csc413.tankgame.model.AiTank;
+import edu.csc413.tankgame.model.Entity;
+import edu.csc413.tankgame.model.GameState;
+import edu.csc413.tankgame.model.PlayerTank;
 import edu.csc413.tankgame.view.MainView;
-//import edu.csc413.tankgame.view.PrintListener;
 import edu.csc413.tankgame.view.RunGameView;
 import edu.csc413.tankgame.view.StartMenuView;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
+
+//import edu.csc413.tankgame.view.PrintListener;
 
 /**
  * GameDriver is the primary controller class for the tank game. The game is launched from GameDriver.main, and
@@ -36,7 +37,7 @@ public class GameDriver {
         runGameView = mainView.getRunGameView();
         gameState = new GameState();
 //        listener = new PrintListener();
-        gameKeyListener = new GameKeyListener();
+//        gameKeyListener = new GameKeyListener();
 
     }
 
@@ -64,7 +65,7 @@ public class GameDriver {
 
 //    private double x = 200.0;
 
-    public PlayerTank playerTank;
+    public static PlayerTank playerTank;
     public void runGame() {
 
        playerTank = new PlayerTank(
@@ -125,11 +126,11 @@ public class GameDriver {
 
 
         //player on keyboard input, ai- internal ai logic, shell forward
-        for(Entity entity: gameState.getEntities()){
-            gameState.upPressed(true);
+//        for(Entity entity: gameState.getEntities()){
+//            gameState.upPressed(true);
 //            entity.move(gameState);
-            update();
-        }
+//            update();
+//        }
 
         //check if images have gone off the screen
 

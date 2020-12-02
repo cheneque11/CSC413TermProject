@@ -1,68 +1,73 @@
 package edu.csc413.tankgame;
 
-import edu.csc413.tankgame.model.Entity;
-import edu.csc413.tankgame.model.GameState;
 import edu.csc413.tankgame.model.PlayerTank;
-import edu.csc413.tankgame.model.Tank;
-import edu.csc413.tankgame.view.RunGameView;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GameKeyListener implements KeyListener {
 
-    @Override
-    public void keyTyped(KeyEvent event){
-        //not useful
+    private final int up;
+    private final int down;
+    private final int left;
+    private final int right;
+    private PlayerTank tank;
+
+    public GameKeyListener(int up, int down, int left, int right, PlayerTank tank) {
+        this.up = up;
+        this.down = down;
+        this.left = left;
+        this.right = right;
+        this.tank = tank;
     }
     @Override
-    public void keyPressed(KeyEvent event){
-
-        int keyCode = event.getKeyCode();
-        if(keyCode == KeyEvent.VK_W){
-
-            System.out.println("W pressed(Up)\n");
-
-//            GameDriver.mainView.closeGame();
-        }
-        if(keyCode == KeyEvent.VK_S){
-
-            System.out.println("S pressed(Down)\n");
-//            gameState.downPressed();
-        }
-        if(keyCode == KeyEvent.VK_Q){
-
-            System.out.println("Q pressed(left)\n");
-//            gameState.leftPressed();
-        }
-        if(keyCode == KeyEvent.VK_E){
-
-            System.out.println("E pressed(Right)\n");
-//            gameState.downPressed();
-        }
-
-        if(keyCode == KeyEvent.VK_ESCAPE){
-            System.out.println("esc pressed\n");
-        }
+    public void keyTyped(KeyEvent e) {
     }
-    @Override
-    public void keyReleased(KeyEvent event){
 
-        int keyCode = event.getKeyCode();
-        if(keyCode == KeyEvent.VK_W){
-            System.out.println("w released\n");
-//            gameState.upPressed(false);
-        }else if(keyCode == KeyEvent.VK_ESCAPE){
-            System.out.println("esc released\n");
+    double x;
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+        if(key == KeyEvent.VK_UP){
+
+            GameDriver.playerTank.setUpPressed(true);
         }
-        if(keyCode == KeyEvent.VK_S){
-            System.out.println("s released\n");
+        if(key == KeyEvent.VK_DOWN){
+            GameDriver.playerTank.setDownPressed(true);
+
         }
-        if(keyCode == KeyEvent.VK_Q){
-            System.out.println("q released\n");
+        if(key == KeyEvent.VK_LEFT){
+            GameDriver.playerTank.setLeftPressed(true);
+
         }
-        if(keyCode == KeyEvent.VK_E){
-            System.out.println("e released\n");
+        if(key == KeyEvent.VK_RIGHT){
+            GameDriver.playerTank.setRightPressed(true);
+
+        }
+        if(key == KeyEvent.VK_RIGHT && key == KeyEvent.VK_DOWN){
+
+            GameDriver.playerTank.setRightDownPressed(true, true);
+
+        }
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+        int key = e.getKeyCode();
+        if(key == KeyEvent.VK_UP){
+            System.out.println("inside controltank\n up\n");
+            GameDriver.playerTank.setUpPressed(false);
+        }
+        if(key == KeyEvent.VK_DOWN){
+            GameDriver.playerTank.setDownPressed(false);
+        }
+        if(key == KeyEvent.VK_LEFT){
+            GameDriver.playerTank.setLeftPressed(false);
+        }
+        if(key == KeyEvent.VK_RIGHT){
+            GameDriver.playerTank.setRightPressed(false);
         }
 
     }

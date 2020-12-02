@@ -1,86 +1,93 @@
 package edu.csc413.tankgame.model;
 
 import edu.csc413.tankgame.GameDriver;
-import edu.csc413.tankgame.GameKeyListener;
-import edu.csc413.tankgame.view.RunGameView;
-import edu.csc413.tankgame.view.StartMenuView;
 
 public class PlayerTank extends Tank {
+
+    private boolean up;
+    private boolean down;
+    private boolean left;
+    private boolean right;
+    private double x;
+    private double y;
+
     public PlayerTank(String id, double x, double y, double angle) {
         super(id, x, y, angle);
+
+        this.x = x;
+        this.y = y;
+
+//        this.moveForward();// = KeyEvent.VK_UP;
+
     }
-
-
-//    public void move(GameState gameState){
-//        super.move(gameState);
-//
-//        Entity playerTank = gameState.getEntity(GameState.PLAYER_TANK_ID);
-//
-//        double dx = playerTank.getX() - getX();
-//        double dy = playerTank.getY() - getY();
-//        double angleToPlayer = Math.atan2(dy, dx);
-//        double angleDifference = getAngle() - angleToPlayer;
-//        angleDifference -= Math.floor(
-//                angleDifference/Math.toRadians(360.0)
-//                        + 0.5 * Math.toRadians(360.0));
-//        if(angleDifference < (-TURN_SPEED)){
-//            turnRight();
-//        }else if(angleDifference > TURN_SPEED){
-//            turnLeft();
-//        }
-//
-//        double distance = Math.sqrt(dx * dx + dy * dy);
-//        if(distance > 400.0){
-//            moveForward();
-//        }else if(distance < 200.0){
-//            moveBackward();
-//        }
-
     @Override
     public void move(GameState gameState){
-        //if a specific key is pressed do specific action(player tank)
-//        super.move(gameState);
 
 
-//        if(gameState.upPressed(true)){
-//            System.out.println("inside plyer tank move\n");
+//        if(up == true){
+//            System.out.println("inside move playertANK\n");
 //            moveForward();
-//        }else if (gameState.upPressed(false)){
-//            System.out.println("inside plyer tank move\n");
-//            moveForward();
-//        }
-//        if(gameState.downPressed()){
-//            moveBackward();
-//        }
-//        if(gameState.leftPressed()){
-//            turnLeft();
-//        }
-//        if(gameState.rightPressed()){
-//            turnRight();
 //        }
 
     }
 
-//    GameDriver gameDriver;
-//    @Override
-//    protected void moveForward() {
-//
-//        gameDriver.playerTank.moveForward();
-//
-//    }
-//
-//    @Override
-//    protected void moveBackward() {
-//
-//    }
-//
-//    @Override
-//    protected void turnLeft() {
-//
-//    }
-//
-//    @Override
-//    protected void turnRight() {
-//
-//    }
+    public void moveUp() {
+
+        GameDriver.playerTank.moveForward();
+        this.up = true;
+    }
+    public  void moveDown() {
+        this.down = true;
+    }
+    public void moveLeft() {
+        this.left = true;
+
+    }
+    public void moveRight() {
+
+        this.right = false;
+    }
+    public  void releaseUp() {
+        this.up = false;
+    }
+
+    public void releaseDown() {
+        this.down = false;
+    }
+    public void releaseLeft() {
+        this.left = false;
+
+    }
+    public  void releaseRight() {
+
+        this.right = false;
+    }
+    public void setUpPressed(boolean up){
+        setY(getY()-2);
+        setAngle(300);
+        this.up = up;
+        System.out.println("inside boolean setupPressed\n");
+    }
+    public void setDownPressed(boolean down){
+        setY(getY()+2);
+        setAngle(190);
+        this.down = down;
+    }
+    public void setLeftPressed(boolean left){
+        setX(getX()-2);
+        setAngle(135);
+        this.left = left;
+    }
+    public void setRightPressed(boolean right){
+        setX(getX()+2);
+        setAngle(0);
+        this.right = right;
+    }
+
+    public void setRightDownPressed(boolean right, boolean down){
+        setX(getX()+2);
+        setY(getY()+2);
+
+    }
+
 }

@@ -19,6 +19,16 @@ public abstract class Entity{
         return id;
     }
 
+    public void setX(double x){
+        this.x = x;
+    }
+    public void setY(double y){
+        this.y = y;
+    }
+    public void setAngle(double angle){
+        this.angle = angle;
+    }
+
     public double getX() {
         return x;
     }
@@ -65,3 +75,5 @@ public abstract class Entity{
         return getY() + 30.0 * (Math.sin(getAngle()) + 0.5);
     }
 }
+
+

@@ -4,10 +4,9 @@ import edu.csc413.tankgame.GameDriver;
 import edu.csc413.tankgame.GameKeyListener;
 
 import javax.swing.*;import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;/**
+import java.awt.event.*;
+
+/**
  * MainView is the primary view that contains and controls individual screens
  * (represented by the separate StartMenuView
  * and RunGameView classes). MainView can be interacted with to set which of
@@ -55,7 +54,8 @@ public class MainView{
         mainJFrame.setLocationRelativeTo(null);
         mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //------------------
-        KeyListener gameListener = new GameKeyListener();
+        KeyListener gameListener = new GameKeyListener(KeyEvent.VK_UP, KeyEvent.VK_DOWN,
+                KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, GameDriver.playerTank);
 
         //TODO set up keyboard listener in addkeylistener parameter
         mainJFrame.addKeyListener(gameListener);
