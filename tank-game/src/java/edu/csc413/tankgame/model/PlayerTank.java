@@ -10,12 +10,14 @@ public class PlayerTank extends Tank {
     private boolean right;
     private double x;
     private double y;
+    private static double angle;
 
     public PlayerTank(String id, double x, double y, double angle) {
         super(id, x, y, angle);
 
         this.x = x;
         this.y = y;
+        this.angle = angle;
 
 //        this.moveForward();// = KeyEvent.VK_UP;
 
@@ -62,32 +64,28 @@ public class PlayerTank extends Tank {
 
         this.right = false;
     }
+
     public void setUpPressed(boolean up){
-        setY(getY()-2);
-        setAngle(300);
+        setX(getX()-4 * Math.cos(getAngle()));
+        setY(getY()-4 * Math.sin(getAngle()));
         this.up = up;
-        System.out.println("inside boolean setupPressed\n");
+
     }
     public void setDownPressed(boolean down){
-        setY(getY()+2);
-        setAngle(190);
+        setX(getX()+4 * Math.cos(angle));
+        setY(getY()+4 * Math.sin(angle));
         this.down = down;
     }
     public void setLeftPressed(boolean left){
-        setX(getX()-2);
-        setAngle(135);
+
+        setAngle(angle -= TURN_SPEED);
         this.left = left;
     }
     public void setRightPressed(boolean right){
-        setX(getX()+2);
-        setAngle(0);
+
+        setAngle(angle += TURN_SPEED);
         this.right = right;
     }
 
-    public void setRightDownPressed(boolean right, boolean down){
-        setX(getX()+2);
-        setY(getY()+2);
-
-    }
 
 }

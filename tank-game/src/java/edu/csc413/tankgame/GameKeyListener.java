@@ -44,11 +44,6 @@ public class GameKeyListener implements KeyListener {
             GameDriver.playerTank.setRightPressed(true);
 
         }
-        if(key == KeyEvent.VK_RIGHT && key == KeyEvent.VK_DOWN){
-
-            GameDriver.playerTank.setRightDownPressed(true, true);
-
-        }
 
     }
 
