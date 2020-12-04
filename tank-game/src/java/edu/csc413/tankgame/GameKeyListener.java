@@ -44,6 +44,11 @@ public class GameKeyListener implements KeyListener {
             GameDriver.playerTank.setRightPressed(true);
 
         }
+        if(key == KeyEvent.VK_A) {
+            System.out.println("shooting\n");
+
+            GameDriver.playerTank.shoot(GameDriver.gameState);
+        }
 
     }
 

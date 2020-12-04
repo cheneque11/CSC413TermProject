@@ -36,6 +36,13 @@ public abstract class Tank extends Entity{
         moveForward();
         turnRight();
     }
+    @Override
+    public void shoot(GameState gameState) {
+        Shell shell = new Shell(Shell.getUniqueId(),
+                getShellX(), getShellY(),
+                getAngle());
+        gameState.addEntities(shell);
+    }
 
     public void moveForward() {
         x += MOVEMENT_SPEED * Math.cos(angle);
@@ -59,11 +66,11 @@ public abstract class Tank extends Entity{
     // is created by this tank. It needs a slight offset so it appears from the front of the tank,
     // even if the tank is rotated. The shell should have the same angle as the tank.
 
-    private double getShellX() {
+    protected double getShellX() {
         return getX() + 30.0 * (Math.cos(getAngle()) + 0.5);
     }
 
-    private double getShellY() {
+    protected double getShellY() {
         return getY() + 30.0 * (Math.sin(getAngle()) + 0.5);
     }
 }

@@ -1,6 +1,6 @@
 package edu.csc413.tankgame.model;
 
-public abstract class Entity{
+public abstract class Entity {
 
     private final String id;
     private double x;
@@ -15,17 +15,21 @@ public abstract class Entity{
         this.angle = angle;
     }
 
+    public abstract void shoot(GameState gameState);
+
     public String getId() {
         return id;
     }
 
-    public void setX(double x){
+    public void setX(double x) {
         this.x = x;
     }
-    public void setY(double y){
+
+    public void setY(double y) {
         this.y = y;
     }
-    public void setAngle(double angle){
+
+    public void setAngle(double angle) {
         this.angle = angle;
     }
 
@@ -67,11 +71,21 @@ public abstract class Entity{
     // is created by this tank. It needs a slight offset so it appears from the front of the tank,
     // even if the tank is rotated. The shell should have the same angle as the tank.
 
-    private double getShellX() {
-        return getX() + 30.0 * (Math.cos(getAngle()) + 0.5);
+    protected double setShellX(double x){
+        this.x = x;
+        return x;
+    }
+    protected double getShellX() {
+
+        double x = getX();
+        while (x < 5000) {
+            setShellX(getX() + 2);
+            return getX() + 30.0 * (Math.cos(getAngle()) + 0.5);
+        }
+        return 0;
     }
 
-    private double getShellY() {
+    protected double getShellY() {
         return getY() + 30.0 * (Math.sin(getAngle()) + 0.5);
     }
 }

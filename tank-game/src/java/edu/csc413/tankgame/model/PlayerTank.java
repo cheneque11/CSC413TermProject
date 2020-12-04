@@ -1,6 +1,7 @@
 package edu.csc413.tankgame.model;
 
 import edu.csc413.tankgame.GameDriver;
+import edu.csc413.tankgame.view.RunGameView;
 
 public class PlayerTank extends Tank {
 
@@ -33,6 +34,40 @@ public class PlayerTank extends Tank {
 
     }
 
+    static int id = 0;
+    @Override
+    public void shoot(GameState gameState) {
+
+        GameDriver.runGameView.addDrawableEntity(
+                GameDriver.shell.getUniqueId(),
+                RunGameView.SHELL_IMAGE_FILE,
+                GameDriver.playerTank.getShellX(),
+                GameDriver.playerTank.getShellY(),
+                GameDriver.playerTank.getAngle()
+        );
+
+        char un[] =GameDriver.shell.getUniqueId().toCharArray();
+
+
+        for(int i = 0; i < GameDriver.shell.getUniqueId().length(); i++){
+
+            if(GameDriver.shell.getId().length() == 6){
+                id = un[i];
+                System.out.println("num: " + id +"\n");
+            }
+
+            if(GameDriver.shell.getId().length() == 7){
+                id = un[i];
+                System.out.println("num: " + id +"\n");
+            }
+            if(GameDriver.shell.getId().length() == 8){
+                id = un[i];
+                System.out.println("num: " + id +"\n");
+            }
+        }
+
+
+    }
     public void moveUp() {
 
         GameDriver.playerTank.moveForward();

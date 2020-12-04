@@ -1,9 +1,6 @@
 package edu.csc413.tankgame;
 
-import edu.csc413.tankgame.model.AiTank;
-import edu.csc413.tankgame.model.Entity;
-import edu.csc413.tankgame.model.GameState;
-import edu.csc413.tankgame.model.PlayerTank;
+import edu.csc413.tankgame.model.*;
 import edu.csc413.tankgame.view.MainView;
 import edu.csc413.tankgame.view.RunGameView;
 import edu.csc413.tankgame.view.StartMenuView;
@@ -18,14 +15,16 @@ import java.awt.event.ActionEvent;
  */
 public class GameDriver {
     public static MainView mainView;
+    public static Shell shell;
+    public static RunGameView runGameView;
+    public static GameState gameState;
     // TODO: Implement.
     // Add the instance variables, constructors,
     // and other methods needed for this class. GameDriver is the centerpiece
     // for the tank game, and should store and manage the
     // other components (i.e. the views and the models). It also is
     // responsible for running the game loop.
-    private final RunGameView runGameView;
-    private final GameState gameState;
+
 //    private  PrintListener listener;
     private ActionEvent event;
     private StartMenuView startMenuView;

@@ -8,27 +8,38 @@ package edu.csc413.tankgame.model;
 //  For full credit, you will need to find a way to share code
 // between the two classes so that the logic for e.g. moveForward, etc. are not duplicated.
 public class Shell extends Entity{
-    private static final String SHELL_ID_PREFIX = "shell-";
+    public static final String SHELL_ID_PREFIX = "shell-";
     private static final double MOVEMENT_SPEED = 4.0;
 
     private static long uniqueId = 0L;
 
-//    private final String id;
-//    private double x;
-//    private double y;
-//    private double angle;
+    private boolean up;
+    private boolean down;
+    private boolean left;
+    private boolean right;
+    private final String id;
+    private double x;
+    private double y;
+    private double angle;
 
-    public Shell(double x, double y, double angle) {
+    public Shell(String Id, double x, double y, double angle) {
         super(getUniqueId(),x, y, angle);
-//        this.id = getUniqueId();
-//        this.x = x;
-//        this.y = y;
-//        this.angle = angle;
+        this.id = getUniqueId();
+        this.x = x;
+        this.y = y;
+        this.angle = angle;
+//        this.id = Id;
     }
+
 
     @Override
     public void move(GameState gameState){
         moveForward();
+    }
+
+    @Override
+    public void shoot(GameState gameState) {
+
     }
 
     @Override
@@ -51,7 +62,8 @@ public class Shell extends Entity{
 
     }
 
-    private static String getUniqueId() {
+    public static String getUniqueId() {
+
         return SHELL_ID_PREFIX + uniqueId++;
     }
 }
