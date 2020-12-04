@@ -65,16 +65,47 @@ public class PlayerTank extends Tank {
         this.right = false;
     }
 
-    public void setUpPressed(boolean up){
-        setX(getX()-4 * Math.cos(getAngle()));
-        setY(getY()-4 * Math.sin(getAngle()));
-        this.up = up;
-
+    public void setUpPressed(boolean up) {
+        System.out.println("getX(): " + getX() + "\n");
+        System.out.println("upPressed\n");
+        if ((int) getX() < 4) {
+            setX(4);
+        }
+        if ((int) getX() > 996) {
+            setX(995);
+        }
+        if ((int) getY() > 696) {
+            setY(694);
+        }
+        if ((int) getY() < 4) {
+            setY(4);
+        }
+        if (getX() > 0 && getX() != 0 && getY() > 0 && getY() != 0) {
+            setX(getX() - 4 * Math.cos(getAngle()));
+            setY(getY() - 4 * Math.sin(getAngle()));
+            this.up = up;
+        }
     }
     public void setDownPressed(boolean down){
-        setX(getX()+4 * Math.cos(angle));
-        setY(getY()+4 * Math.sin(angle));
-        this.down = down;
+        System.out.println("getY(): " +getY() + "\n");
+        System.out.println("DownPressed\n");
+        if((int) getX() < 4){
+            setX(4);
+        }
+        if((int) getX() > 996){
+            setX(995);
+        }
+        if((int) getY() > 696){
+            setY(695);
+        }
+        if((int) getY() < 4 ){
+            setY(4);
+        }
+        if(getX() > 0 && getX() != 0 && getY() > 0 && getY() != 0) {
+            setX(getX() + 4 * Math.cos(angle));
+            setY(getY() + 4 * Math.sin(angle));
+            this.down = down;
+        }
     }
     public void setLeftPressed(boolean left){
 
