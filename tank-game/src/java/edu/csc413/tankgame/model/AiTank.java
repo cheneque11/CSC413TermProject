@@ -11,13 +11,28 @@ public class AiTank extends Tank {
 
     @Override
     public void move(GameState gameState) {
-        //(ai tank) use gamestate logic, get location, face player
-        super.move(gameState);
+            //        super.move(gameState);
 
-//                getX();
-//        turnRight();
-//        Entity playerTank = gameState.getEntity(
-//                GameState.PLAYER_TANK_ID);
-    }
+//     PlayerTank playerTank = (PlayerTank) gameState.getEntity(GameState.PLAYER_TANK_ID);
+
+            double dx = GameDriver.playerTank.getX() - getX();
+            double dy = GameDriver.playerTank.getY() - getY();
+
+            double angleToPlayer = Math.atan2(dy, dx);
+            double angleDifference = getAngle() - angleToPlayer;
+            angleDifference -=
+                    Math.floor(angleDifference / Math.toRadians(360.0)
+                            + 0.5) * Math.toRadians(360.0);
+
+            if (angleDifference < -Math.toRadians(3.0)) {
+                turnRight();
+            } else if (angleDifference > Math.toRadians(3.0)) {
+                turnLeft();
+            }
+//        shoot(gameState);
+
+            GameState.checkBulletsBoundries();
+
+        }
 
 }

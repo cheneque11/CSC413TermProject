@@ -54,8 +54,7 @@ public class MainView{
         mainJFrame.setLocationRelativeTo(null);
         mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //------------------
-        KeyListener gameListener = new GameKeyListener(KeyEvent.VK_UP, KeyEvent.VK_DOWN,
-                KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, GameDriver.playerTank);
+        KeyListener gameListener = new GameKeyListener();
 
         //TODO set up keyboard listener in addkeylistener parameter
         mainJFrame.addKeyListener(gameListener);

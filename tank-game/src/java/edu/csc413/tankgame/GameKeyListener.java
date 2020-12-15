@@ -1,5 +1,6 @@
 package edu.csc413.tankgame;
 
+import edu.csc413.tankgame.model.GameState;
 import edu.csc413.tankgame.model.PlayerTank;
 
 import java.awt.event.KeyEvent;
@@ -7,19 +8,6 @@ import java.awt.event.KeyListener;
 
 public class GameKeyListener implements KeyListener {
 
-    private final int up;
-    private final int down;
-    private final int left;
-    private final int right;
-    private PlayerTank tank;
-
-    public GameKeyListener(int up, int down, int left, int right, PlayerTank tank) {
-        this.up = up;
-        this.down = down;
-        this.left = left;
-        this.right = right;
-        this.tank = tank;
-    }
     @Override
     public void keyTyped(KeyEvent e) {
     }
@@ -29,25 +17,32 @@ public class GameKeyListener implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         if(key == KeyEvent.VK_UP){
-
-            GameDriver.playerTank.setUpPressed(true);
+            GameState.setUpPressed();
         }
         if(key == KeyEvent.VK_DOWN){
-            GameDriver.playerTank.setDownPressed(true);
-
+            GameState.setDownPressed();
         }
         if(key == KeyEvent.VK_LEFT){
-            GameDriver.playerTank.setLeftPressed(true);
-
+            GameState.setLeftPressed();
         }
         if(key == KeyEvent.VK_RIGHT){
-            GameDriver.playerTank.setRightPressed(true);
-
+            GameState.setRightPressed();
         }
         if(key == KeyEvent.VK_A) {
-            System.out.println("shooting\n");
 
-            GameDriver.playerTank.shoot(GameDriver.gameState);
+            System.out.println("A pressed\n");
+//            GameDriver.playerTank.coolDown();
+            GameState.isShootPressed();
+        }
+        if(key == KeyEvent.VK_D) {
+
+            System.out.println("D pressed\n");
+            GameState.reset();
+        }
+
+        if(key == KeyEvent.VK_ESCAPE){
+            System.out.println("esc pressed\n");
+            GameState.escapePressed();
         }
 
     }
@@ -58,17 +53,24 @@ public class GameKeyListener implements KeyListener {
         int key = e.getKeyCode();
         if(key == KeyEvent.VK_UP){
             System.out.println("inside controltank\n up\n");
-            GameDriver.playerTank.setUpPressed(false);
+            GameState.notUpPressed();
         }
         if(key == KeyEvent.VK_DOWN){
-            GameDriver.playerTank.setDownPressed(false);
+            GameState.notDownPressed();
         }
         if(key == KeyEvent.VK_LEFT){
-            GameDriver.playerTank.setLeftPressed(false);
+            GameState.notLeftPressed();
         }
         if(key == KeyEvent.VK_RIGHT){
-            GameDriver.playerTank.setRightPressed(false);
+            GameState.notRighttPressed();
         }
-
+        if(key == KeyEvent.VK_A){
+//            System.out.println("A realsed\n");
+            GameState.notShootPressed();
+        }
+        if(key == KeyEvent.VK_ESCAPE){
+//            System.out.println("esc pressed\n");
+            GameState.escapeNotPressed();
+        }
     }
 }

@@ -13,57 +13,31 @@ public class Shell extends Entity{
 
     private static long uniqueId = 0L;
 
-    private boolean up;
-    private boolean down;
-    private boolean left;
-    private boolean right;
-    private final String id;
-    private double x;
-    private double y;
-    private double angle;
+    public Shell(String id, double x, double y, double angle) {
+        super(id,x, y, angle);
+        id = getUniqueId();
 
-    public Shell(String Id, double x, double y, double angle) {
-        super(getUniqueId(),x, y, angle);
-        this.id = getUniqueId();
-        this.x = x;
-        this.y = y;
-        this.angle = angle;
-//        this.id = Id;
     }
-
 
     @Override
     public void move(GameState gameState){
-        moveForward();
-    }
 
-    @Override
-    public void shoot(GameState gameState) {
-
-    }
-
-    @Override
-    public void moveForward() {
-
-    }
-
-    @Override
-    protected void moveBackward() {
-
-    }
-
-    @Override
-    protected void turnLeft() {
-
-    }
-
-    @Override
-    protected void turnRight() {
-
+        if(GameState.shoot){
+            moveForward();
+        }
     }
 
     public static String getUniqueId() {
 
-        return SHELL_ID_PREFIX + uniqueId++;
+        String str = String.valueOf(uniqueId++);
+        System.out.println(SHELL_ID_PREFIX + str);
+        return SHELL_ID_PREFIX + uniqueId;
+    }
+
+    @Override
+    public String toString() {
+        String str = String.valueOf(uniqueId++);
+        System.out.println(SHELL_ID_PREFIX + str);
+        return SHELL_ID_PREFIX + uniqueId;
     }
 }

@@ -2,7 +2,6 @@ package edu.csc413.tankgame.model;
 
 import edu.csc413.tankgame.GameDriver;
 import edu.csc413.tankgame.view.RunGameView;
-import edu.csc413.tankgame.view.StartMenuView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +24,16 @@ public class GameState {
 
     public static final String PLAYER_TANK_ID = "player-tank";
     public static final String AI_TANK_ID = "ai-tank";
+    public static final String SECOND_AI_TANK_ID = "second-ai";
 
-    boolean up = false;
-    boolean down = false;
-    boolean left = false;
-    boolean right = false;
+    public static boolean up ;
+    public static boolean down;
+    public static boolean left;
+    public static boolean right;
+    public static boolean d;
+    public static boolean shoot;
+    public static boolean escape;
+
     // TODO: Feel free to add more tank IDs if you want to support multiple AI tanks! Just make sure they're unique.
 
     // TODO: Implement.
@@ -67,46 +71,141 @@ public class GameState {
     }
 //-------------------------------------------------
 
-    public static double getTankXLowerBound(){
-        return TANK_X_LOWER_BOUND;
+    public List<Entity> shells = new ArrayList<>();
+    public  List<Entity> removeShellsList = new ArrayList<>();
+
+    public void addShells(Entity shell) {
+        shells.add(shell);
     }
-PlayerTank playerTank;
-    public  boolean upPressed(boolean t) {
 
-        playerTank = new PlayerTank(getEntities().get(0).getId(),
-                getEntities().get(0).getX(),
-                getEntities().get(0).getY(),
-                getEntities().get(0).getAngle());
+    public void addRemoveShellsList(Entity shell) {
+        removeShellsList.add(shell);
+    }
+
+    public void clearShells(){
+        shells.clear();
+    }
+    public void clearRemovedShells(){
+        removeShellsList.clear();
+    }
+    public List<Entity> getShells() {
+        return shells;
+    }
+
+//-------------------------------------------------
 
 
-        playerTank.moveForward();
-        addEntities(playerTank);
-//        getEntities().get(0)
-//        System.out.println(getEntities().equals(0));
-//        if(!t){
-//            System.out.println("inside uppressed\n");
-//        }
-//        playerTank.moveForward();
-//        System.out.println(getEntities().get(0).getId());
+    public static void reset(){
+
+
+    }
+
+    public static void notUpPressed() {
+
+        up = false;
+    }
+    public static void setUpPressed(){
+
+        up = true;
+    }
+
+    public static void notDownPressed() {
+//        System.out.println("getX(): " + getX() + "\n");
+        System.out.println("downPressed\n");
+
+        down = false;
+    }
+    public static void setDownPressed() {
+//        System.out.println("getX(): " + getX() + "\n");
+        System.out.println("downPressed\n");
+
+        down = true;
+    }
+
+    public void notDPressed() {
+//        System.out.println("getX(): " + getX() + "\n");
+        System.out.println("DPressed\n");
+
+        d = false;
+    }
+    public void setDPressed() {
+//        System.out.println("getX(): " + getX() + "\n");
+        System.out.println("DNotPressed\n");
+
+        d = true;
+    }
+
+    public static void isShootPressed(){
+        System.out.println("shooting\n");
+        GameDriver.playerTank.shoot(GameDriver.gameState);
+        shoot = true;
+
+    }
+    public static void notShootPressed(){
+        System.out.println("not shooting\n");
+        GameDriver.playerTank.shoot(GameDriver.gameState);
+        shoot = false;
+
+    }
+    public static void notLeftPressed() {
+//        System.out.println("getX(): " + getX() + "\n");
+        System.out.println("leftnotPressed\n");
+
+        left = false;
+    }
+    public static void setLeftPressed() {
+//        System.out.println("getX(): " +getX() + "\n");
+        System.out.println("LeftPressed\n");
+
+        left = true;
+    }
+    public static void notRighttPressed() {
+//        System.out.println("getX(): " + getX() + "\n");
+        System.out.println("leftnotPressed\n");
+
+        right = false;
+    }
+    public static void setRightPressed() {
+//        System.out.println("getX(): " +getX() + "\n");
+        System.out.println("LeftPressed\n");
+
+        right = true;
+    }
+    public static void escapePressed() {
+        escape = true;
+    }
+    public static void escapeNotPressed() {
+        escape =false;
+    }
+
+    public static  void checkBulletsBoundries(){
+
+//        for(Shell s: shells) {
 //
-//        System.out.println("outsideide uppressed\n");
-        return up;
+//            GameDriver.runGameView.removeDrawableEntity(s.getId());
+//        }
+//        for(Shell s: shells) {
+//            if (s.getX() > GameState.TANK_X_UPPER_BOUND - 10) {
+//                System.out.println("REMOVING SHELL\n");
+//                GameDriver.gameState.removeShells(s);
+//            } else if (s.getX() < GameState.TANK_X_LOWER_BOUND + 10) {
+//                GameDriver.gameState.removeShells(s);
+//            }
+//            if (s.getY() > GameState.SHELL_Y_UPPER_BOUND - 10) {
+//                System.out.println("REMOVING SHELL\n");
+//                GameDriver.gameState.removeShells(s);
+//            } else if (s.getY() < GameState.TANK_Y_LOWER_BOUND + 10) {
+//                System.out.println("REMOVING SHELL\n");
+//                GameDriver.gameState.removeShells(s);
+//            }
+//        }
     }
-    public boolean downPressed(){
-        System.out.println("inside down pressed\n");
-        return down;
 
+    public void removeEntity(Entity e) {
+        addEntities(e);
+        getEntities().remove(e);
     }
 
-    public boolean leftPressed() {
-        System.out.println("inside left pressed\n");
-        return left;
 
-    }
-    public boolean rightPressed(){
-        System.out.println("inside right pressed\n");
-        return right;
-
-    }
 
 }
