@@ -1,6 +1,9 @@
 package edu.csc413.tankgame.model;
 
 
+import edu.csc413.tankgame.GameDriver;
+import edu.csc413.tankgame.WallImageInfo;
+
 public class Walls extends Entity {
 
 
@@ -27,5 +30,41 @@ public class Walls extends Entity {
         String str = String.valueOf(uniqueId++);
         System.out.println(WALL_ID_PREFIX + str);
         return WALL_ID_PREFIX + uniqueId;
+    }
+
+
+    public double getXBound(){
+
+        double x = getX() + 32.00;
+
+        return x;
+    }
+
+
+    public double getYBound(){
+
+        double y = getY() + 32.00;
+        return y;
+    }
+
+    public static void addWalls(){
+        int i = 0;
+
+        System.out.println("walls!!" + WallImageInfo.readWalls().size() +"\n");
+        for(WallImageInfo entity: WallImageInfo.readWalls()){
+            System.out.println(entity.getX());
+            System.out.println(entity.getImageFile());
+            Entity wall = new Walls(i +"", entity.getX(), entity.getY(), 0);
+            GameDriver.gameState.addEntities(wall);
+            GameDriver.runGameView.addDrawableEntity(
+                    i+"",
+                    entity.getImageFile(),
+                    entity.getX(),
+                    entity.getY(),
+                    0
+            );
+
+            i++;
+        }
     }
 }

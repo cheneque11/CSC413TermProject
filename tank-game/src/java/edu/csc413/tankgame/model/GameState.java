@@ -33,48 +33,29 @@ public class GameState {
     public static boolean d;
     public static boolean shoot;
     public static boolean escape;
-
-    // TODO: Feel free to add more tank IDs if you want to support multiple AI tanks! Just make sure they're unique.
-
-    // TODO: Implement.
-    // There's a lot of information the GameState will
-    // need to store to provide contextual information. Add whatever
-    // instance variables, constructors, and methods are needed.
+    public static int coolDown = 300;
+    public static int playerCoolDown;
 
     //not proper way to do it we want to got hrough all images not just tanks
     //--------------------------------------
     private final List<Entity> entities = new ArrayList<>();
 
-    public void addEntities(Entity entity){
+    public void addEntities(Entity entity) {
         entities.add(entity);
     }
 
-    public List<Entity> getEntities(){
+    //    public void addEntity(Entity entity){
+//        entities.add(entity);
+//    }
+    public List<Entity> getEntities() {
         return entities;
     }
 
-    private final List<Tank> tanks = new ArrayList<>();
-
-    public void addTanks(Tank tanks){
-        entities.add(tanks);
-    }
-
-    public List<Tank> getTanks(){
-        return tanks;
-    }
-
-
-
-    public Entity getEntity(String id){
-        return (Entity) entities.stream()
-                .filter(entity -> entity.getId().equals(id));
-    }
-//-------------------------------------------------
-
-    public List<Entity> shells = new ArrayList<>();
+    public static List<Entity> shells = new ArrayList<>();
     public  List<Entity> removeShellsList = new ArrayList<>();
 
     public void addShells(Entity shell) {
+        System.out.println("Adding shell: " + shell + "\n");
         shells.add(shell);
     }
 
@@ -89,9 +70,16 @@ public class GameState {
         removeShellsList.clear();
     }
     public List<Entity> getShells() {
+        for(Entity e: shells) {
+            System.out.println("get shells list:" + e);
+        }
         return shells;
     }
 
+    public Entity getEntity(String id) {
+        return (Entity) entities.stream()
+                .filter(entity -> entity.getId().equals(id));
+    }
 //-------------------------------------------------
 
 
@@ -143,7 +131,7 @@ public class GameState {
     }
     public static void notShootPressed(){
         System.out.println("not shooting\n");
-        GameDriver.playerTank.shoot(GameDriver.gameState);
+//        GameDriver.playerTank.shoot(GameDriver.gameState);
         shoot = false;
 
     }
@@ -178,34 +166,17 @@ public class GameState {
         escape =false;
     }
 
-    public static  void checkBulletsBoundries(){
+    public static void coolDown() {
 
-//        for(Shell s: shells) {
-//
-//            GameDriver.runGameView.removeDrawableEntity(s.getId());
-//        }
-//        for(Shell s: shells) {
-//            if (s.getX() > GameState.TANK_X_UPPER_BOUND - 10) {
-//                System.out.println("REMOVING SHELL\n");
-//                GameDriver.gameState.removeShells(s);
-//            } else if (s.getX() < GameState.TANK_X_LOWER_BOUND + 10) {
-//                GameDriver.gameState.removeShells(s);
-//            }
-//            if (s.getY() > GameState.SHELL_Y_UPPER_BOUND - 10) {
-//                System.out.println("REMOVING SHELL\n");
-//                GameDriver.gameState.removeShells(s);
-//            } else if (s.getY() < GameState.TANK_Y_LOWER_BOUND + 10) {
-//                System.out.println("REMOVING SHELL\n");
-//                GameDriver.gameState.removeShells(s);
-//            }
-//        }
+        if(coolDown <= 1) {
+            coolDown = 300;
+            playerCoolDown = 300;
+        }
     }
-
     public void removeEntity(Entity e) {
-        addEntities(e);
-        getEntities().remove(e);
-    }
+        entities.remove(e);
 
+    }
 
 
 }

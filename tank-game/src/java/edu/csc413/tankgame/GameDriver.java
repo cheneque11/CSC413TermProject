@@ -67,25 +67,6 @@ public class GameDriver {
                 RunGameView.AI_TANK_INITIAL_ANGLE
         );
 
-        int i = 0;
-
-        System.out.println("walls!!" + WallImageInfo.readWalls().size() +"\n");
-        for(WallImageInfo entity: WallImageInfo.readWalls()){
-            System.out.println(entity.getX());
-            System.out.println(entity.getImageFile());
-            Entity wall = new Walls(i +"", entity.getX(), entity.getY(), 0);
-            gameState.addEntities(wall);
-            runGameView.addDrawableEntity(
-                    i+"",
-                    entity.getImageFile(),
-                    entity.getX(),
-                    entity.getY(),
-                    0
-            );
-
-            i++;
-        }
-
         secondAi = new SecondAi(
                 GameState.SECOND_AI_TANK_ID,
                 RunGameView.AI_TANK_INITIAL_X +100,
@@ -97,6 +78,7 @@ public class GameDriver {
         gameState.addEntities(playerTank);
         gameState.addEntities(secondAi);
 
+        Walls.addWalls();
 
         /*Draw images on screen*/
 
@@ -135,7 +117,6 @@ public class GameDriver {
     private boolean update() {
         //every 8ms ask tanks, shells to move
 
-
         for(Entity entity: gameState.getEntities()){
             entity.move(gameState);
         }
@@ -154,8 +135,104 @@ public class GameDriver {
 
         }
 
-//        gameState.clearShells();
 
+        if(entitiesOverlap(playerTank, ai_tank)){
+            System.out.println("inside entities overlappoing\n");
+            double mLeft = playerTank.getXBound() - ai_tank.getX();
+            double mRight = ai_tank.getXBound() - playerTank.getX();
+            double mDown = ai_tank.getYBound() - playerTank.getY();
+            double mUp = playerTank.getYBound() - ai_tank.getY();
+            double min = 0;
+
+            if(playerTank.getXBound() < ai_tank.getX()) {
+
+//                ai_tank.setX(playerTank.getXBound() - ai_tank.getX());
+
+
+                System.out.println("inside playerTank.getXBound() < ai_tank.getX()\n");
+//                ai_tank.setX(ai_tank.getX()+15);
+            }else if(playerTank.getX() > ai_tank.getXBound()){
+//                ai_tank.setX(ai_tank.getXBound() - playerTank.getX() + 20);
+                System.out.println("inside playerTank.getX() > ai_tank.getXBound()\n");
+//                ai_tank.setX(ai_tank.getX()-15);
+
+
+            }else if(playerTank.getYBound() < ai_tank.getY()){
+//                ai_tank.setX(playerTank.getYBound() - ai_tank.getY() + 20);
+//                ai_tank.setY(ai_tank.getY()+15);
+
+
+            }else if(playerTank.getY() > ai_tank.getYBound()){
+//                ai_tank.setX(ai_tank.getYBound() - playerTank.getY()- 20);
+//                ai_tank.setY(ai_tank.getY()-15);
+
+
+            }
+            min = Math.min(Math.min(Math.min(mLeft, mRight), mDown),mUp);
+            if(min == mLeft) {
+                playerTank.setX(playerTank.getX() - min / 2);
+                ai_tank.setX(ai_tank.getX() + min / 2);
+            }else if(min == mRight) {
+                playerTank.setX(playerTank.getX() + min / 2);
+                ai_tank.setX(ai_tank.getX() - min / 2);
+            }else if(min == mDown) {
+                playerTank.setY(playerTank.getY() + min / 2);
+                ai_tank.setY(ai_tank.getY() - min / 2);
+            }else if(min == mUp) {
+                playerTank.setY(playerTank.getY() - min / 2);
+                ai_tank.setY(ai_tank.getY() + min / 2);
+            }
+
+        }
+
+
+        if(entitiesOverlap(playerTank, secondAi)){
+            System.out.println("inside entities overlappoing\n");
+            if(playerTank.getX() < secondAi.getX()) {
+
+                System.out.println("inside playerTank.getXBound() < ai_tank.getX()\n");
+                secondAi.setX(secondAi.getX()+15);
+            }
+            if(playerTank.getX() > secondAi.getX()){
+
+                System.out.println("inside playerTank.getX() > ai_tank.getXBound()\n");
+                secondAi.setX(secondAi.getX()-15);
+            }
+            if(playerTank.getY() < secondAi.getY()){
+
+                secondAi.setY(secondAi.getY()+15);
+            }
+            if(playerTank.getY() > secondAi.getY()){
+
+                secondAi.setY(secondAi.getY()-15);
+
+            }
+        }
+
+
+
+
+        gameState.clearShells();
+
+        for(Entity e: gameState.getEntities()){
+            if(e.getX() < GameState.SHELL_X_LOWER_BOUND + 50||
+                    e.getX() > GameState.TANK_X_UPPER_BOUND - 50||
+                    e.getY() > GameState.SHELL_Y_UPPER_BOUND - 50||
+                    e.getY() < GameState.SHELL_Y_LOWER_BOUND + 50){
+
+                System.out.println("ADDING TO ADDrEMOVEDSHELLS\n");
+                if(playerTank.getId() != e.getId() && ai_tank.getId() != e.getId()
+                        && secondAi.getId() != e.getId()) {
+                    gameState.addRemoveShellsList(e);
+                }
+            }
+        }
+
+        for(Entity e: gameState.removeShellsList){
+            gameState.removeEntity(e);
+            runGameView.removeDrawableEntity(e.getId());
+        }
+//        gameState.clearRemovedShells();
 //
 
 //        runGameView.removeDrawableEntity(gameState.shells.toString());
@@ -191,5 +268,13 @@ public class GameDriver {
         GameDriver gameDriver = new GameDriver();
         gameDriver.start();
         System.out.println("Good Bye\n");
+    }
+
+    private boolean entitiesOverlap(Entity entity1, Entity entity2){
+
+        return entity1.getX() < entity2.getXBound()
+                && entity1.getXBound() > entity2.getX()
+                && entity1.getY() < entity2.getYBound()
+                && entity1.getYBound() > entity2.getY();
     }
 }

@@ -36,5 +36,20 @@ public abstract class Tank extends Entity {
 
     }
 
+    public double getXBound(){
+
+        double x = getX() + 55.00;
+
+        return x;
+    }
+
+
+    public double getYBound(){
+
+        double y = getY() + 24.00;
+        return y;
+    }
+
+
 
 }

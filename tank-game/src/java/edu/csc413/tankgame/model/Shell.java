@@ -18,15 +18,26 @@ public class Shell extends Entity{
         id = getUniqueId();
 
     }
-
     @Override
     public void move(GameState gameState){
 
-        if(GameState.shoot){
-            moveForward();
-        }
+
+        moveForward();
     }
 
+    public double getXBound(){
+
+        double x = getX() + 24.00;
+
+        return x;
+    }
+
+
+    public double getYBound(){
+
+        double y = getY() + 24.00;
+        return y;
+    }
     public static String getUniqueId() {
 
         String str = String.valueOf(uniqueId++);
@@ -40,4 +51,6 @@ public class Shell extends Entity{
         System.out.println(SHELL_ID_PREFIX + str);
         return SHELL_ID_PREFIX + uniqueId;
     }
+
+
 }

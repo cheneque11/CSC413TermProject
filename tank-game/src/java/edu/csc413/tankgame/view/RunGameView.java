@@ -17,13 +17,13 @@ public class RunGameView extends JPanel {
             768);
 
     public static final String PLAYER_TANK_IMAGE_FILE = "player-tank.png";
-    public static final double PLAYER_TANK_INITIAL_X = 200.0;  //INITIAL X&Y FOR TANKS AND ANGLE
-    public static final double PLAYER_TANK_INITIAL_Y = 150.0;
+    public static final double PLAYER_TANK_INITIAL_X = 300.0;  //INITIAL X&Y FOR TANKS AND ANGLE
+    public static final double PLAYER_TANK_INITIAL_Y = 350.0;
     public static final double PLAYER_TANK_INITIAL_ANGLE = Math.toRadians(45.0);
 
     public static final String AI_TANK_IMAGE_FILE = "ai-tank.png";
-    public static final double AI_TANK_INITIAL_X = 750.0;
-    public static final double AI_TANK_INITIAL_Y = 500.0;
+    public static final double AI_TANK_INITIAL_X = 500.0;
+    public static final double AI_TANK_INITIAL_Y = 200.0;
     public static final double AI_TANK_INITIAL_ANGLE = Math.toRadians(2.0);
 
     // TODO: Feel free to add more constants if you would like multiple AI tanks -- just be sure to set them at

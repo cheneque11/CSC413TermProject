@@ -129,8 +129,14 @@ public abstract class Entity {
 
     protected double getShellY() {
         return getY() + 30.0 * (Math.sin(getAngle()) + 0.5);
-
     }
+
+
+    public abstract double getXBound();
+
+    public abstract double getYBound();
+
+
 }
 
 
