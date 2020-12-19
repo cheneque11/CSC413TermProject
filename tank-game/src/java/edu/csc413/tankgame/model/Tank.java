@@ -12,8 +12,7 @@ import edu.csc413.tankgame.GameDriver;
 // moveForward, etc. are not duplicated.
 public abstract class Tank extends Entity {
 
-    private static final double MOVEMENT_SPEED = 2.0;
-    protected static final double TURN_SPEED = Math.toRadians(3.0);
+
 
     public Tank(String id, double x, double y, double angle) {
         super(id, x, y, angle);
@@ -28,14 +27,16 @@ public abstract class Tank extends Entity {
     // controlled tank.
 
     public void shoot(GameState gameState) {
+
+        Shell.setTankId(getId());
         Shell shell = new Shell(Shell.getUniqueId(),
                 getShellX(), getShellY(),
-                getAngle());
+                getAngle(),
+                Shell.getTankId()
+        );
+//        System.out.println("**********"+shell.getTankId());
         GameDriver.gameState.addShells(shell);
-        shell.moveForward();
-
     }
-
     public double getXBound(){
 
         double x = getX() + 55.00;
@@ -43,13 +44,11 @@ public abstract class Tank extends Entity {
         return x;
     }
 
-
     public double getYBound(){
 
         double y = getY() + 24.00;
         return y;
     }
-
 
 
 }

@@ -8,6 +8,8 @@ public abstract class Entity {
     private double x;
     private double y;
     private double angle;
+    private int health = 8;
+
 
     private static final double MOVEMENT_SPEED = 2.0;
     protected static final double TURN_SPEED = Math.toRadians(3.0);
@@ -23,18 +25,21 @@ public abstract class Entity {
         return id;
     }
 
-    public void setX(double x){
+    public void setX(double x) {
         this.x = x;
     }
-    public void setY(double y){
+
+    public void setY(double y) {
         this.y = y;
     }
-    public void setXYAngle(double x, double y, double angle){
+
+    public void setXYAngle(double x, double y, double angle) {
         this.x = x;
         this.y = y;
         this.angle = angle;
     }
-    public void setAngle(double angle){
+
+    public void setAngle(double angle) {
 
         this.angle = angle;
     }
@@ -48,18 +53,10 @@ public abstract class Entity {
     }
 
 
-
     public double getAngle() {
 
-        if(angle > 6){
-            setAngle(0);
-        }
-        if(angle < 0){
-            setAngle(6);
-        }
         return angle;
     }
-
 
     public abstract void move(GameState gameState);
 
@@ -78,8 +75,8 @@ public abstract class Entity {
             setY(y -= MOVEMENT_SPEED * Math.sin(angle));
         }
     }
+
     protected void moveForward() {
-//        System.out.println("inside move forward\n");
         if (x > GameState.TANK_X_UPPER_BOUND) {
             this.x = GameState.TANK_X_UPPER_BOUND;
             GameDriver.gameState.getShells().clear();
@@ -99,12 +96,9 @@ public abstract class Entity {
         }
     }
 
-
-
     protected void turnLeft() {
         setAngle(this.angle -= TURN_SPEED);
     }
-
 
     protected void turnRight() {
         setAngle(this.angle += TURN_SPEED);
@@ -116,12 +110,14 @@ public abstract class Entity {
     // even if the tank is rotated. The shell should
     // have the same angle as the tank.
 
-    protected void setShellX(double x){
+    protected void setShellX(double x) {
         this.x = x;
     }
-    protected void setShellY(double y){
+
+    protected void setShellY(double y) {
         this.y = y;
     }
+
     protected double getShellX() {
 
         return getX() + 30.0 * (Math.cos(getAngle()) + 0.5);
@@ -131,12 +127,36 @@ public abstract class Entity {
         return getY() + 30.0 * (Math.sin(getAngle()) + 0.5);
     }
 
-
     public abstract double getXBound();
 
     public abstract double getYBound();
 
-
+    public int healthDecrease() {
+//        PlayerTank playerTank = (PlayerTank) GameDriver.gameState.getEntity(GameState.PLAYER_TANK_ID);
+        if (getId() == "player-tank") {
+            if (health > 0) {
+                health -= 1;
+            }
+            if (health == 0) {
+                health = 0;
+            }
+            return health;
+        } else if (getId() == "ai-tank") {
+            if (health > 0) {
+                health -= 1;
+            }else if (health == 0) {
+                health = 0;
+            }
+            return health;
+        }else if (getId() == "second-ai-tank") {
+            if (health > 0) {
+                health -= 1;
+            }
+            if (health == 0) {
+                health = 0;
+            }
+            return health;
+        }
+        return 0;
+    }
 }
-
-

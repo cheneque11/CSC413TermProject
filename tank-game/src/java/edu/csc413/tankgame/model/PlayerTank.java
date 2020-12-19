@@ -1,8 +1,9 @@
 package edu.csc413.tankgame.model;
 
-import edu.csc413.tankgame.GameDriver;
+import edu.csc413.tankgame.view.RunGameView;
 
 public class PlayerTank extends Tank {
+    private static final double MOVEMENT_SPEED = 2.0;
 
     public PlayerTank(String id, double x, double y, double angle) {
         super(id, x, y, angle);
@@ -10,6 +11,7 @@ public class PlayerTank extends Tank {
 
     @Override
     public void move(GameState gameState) {
+
 
         if (GameState.up) {
 
@@ -36,11 +38,18 @@ public class PlayerTank extends Tank {
                 GameState.coolDown();
             }
         }
-        if(GameState.d){
-            GameDriver.gameState.reset();
-        }
+
         GameState.playerCoolDown--;
     }
 
+    public void getLife() {
 
+        Lives.setTankId(getId());
+        Lives life = new Lives(GameState.BLUE_ID,
+                RunGameView.BLUE_INITIAL_X, RunGameView.BLUE_INITIAL_Y,
+                0,
+                Lives.getTankId()
+        );
+        GameState.addBlueLives(life);
+    }
 }

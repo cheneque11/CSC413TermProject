@@ -11,6 +11,7 @@ import java.util.List;
  * and shells, and provides the controller of the program (i.e. the GameDriver) access to whatever information it needs
  * to run the game. Essentially, GameState is the "data context" needed for the rest of the program.
  */
+
 public class GameState {
     public static final double TANK_X_LOWER_BOUND = 30.0;
     public static final double TANK_X_UPPER_BOUND = RunGameView.SCREEN_DIMENSIONS.width - 100.0;
@@ -24,15 +25,29 @@ public class GameState {
 
     public static final String PLAYER_TANK_ID = "player-tank";
     public static final String AI_TANK_ID = "ai-tank";
-    public static final String SECOND_AI_TANK_ID = "second-ai";
+    public static final String SECOND_AI_TANK_ID = "second-ai-tank";
+    public static final String BLUE_ID = "blue";
+    public static final String RED_ID = "red";
+    public static final String GREEN_ID = "green";
+    ;
+    public static final String POWER_ID = "power";
+    public static final String YOUWIN_ID = "youwin";
+    public static final String YOULOSE_ID = "youlose";
+    public static final String SHELL_EXPLOSION = "shell-expolision";
 
-    public static boolean up ;
+
+    // TODO: Feel free to add more tank IDs if you want to support multiple AI tanks! Just make sure they're unique.
+
+    // TODO: Implement.
+    // There's a lot of information the GameState will
+    // need to store to provide contextual information. Add whatever
+    // instance variables, constructors, and methods are needed.
+    public static boolean up;
     public static boolean down;
     public static boolean left;
     public static boolean right;
     public static boolean d;
     public static boolean shoot;
-    public static boolean escape;
     public static int coolDown = 300;
     public static int playerCoolDown;
 
@@ -44,18 +59,18 @@ public class GameState {
         entities.add(entity);
     }
 
-    //    public void addEntity(Entity entity){
-//        entities.add(entity);
-//    }
     public List<Entity> getEntities() {
         return entities;
     }
 
     public static List<Entity> shells = new ArrayList<>();
-    public  List<Entity> removeShellsList = new ArrayList<>();
+    public List<Entity> removeShellsList = new ArrayList<>();
+    public List<Entity> redLives = new ArrayList<>();
+    public static List<Entity> blueLives = new ArrayList<>();
+    public List<Entity> greenLives = new ArrayList<>();
 
     public void addShells(Entity shell) {
-        System.out.println("Adding shell: " + shell + "\n");
+//        System.out.println("Adding shell: " + shell + "\n");
         shells.add(shell);
     }
 
@@ -63,30 +78,56 @@ public class GameState {
         removeShellsList.add(shell);
     }
 
-    public void clearShells(){
+    public void clearShells() {
         shells.clear();
     }
-    public void clearRemovedShells(){
-        removeShellsList.clear();
-    }
+
     public List<Entity> getShells() {
-        for(Entity e: shells) {
-            System.out.println("get shells list:" + e);
+        for (Entity e : shells) {
+//            System.out.println("get shells list:" + e);
         }
         return shells;
     }
 
+    public List<Entity> getRedLives() {
+        return redLives;
+    }
+
+    public void addRedLives(Entity live) {
+        redLives.add(live);
+    }
+
+    public List<Entity> getGreenLives() {
+        return greenLives;
+    }
+
+    public void addGreenLives(Entity live) {
+        greenLives.add(live);
+    }
+
+    public List<Entity> getBlueLives() {
+        return blueLives;
+    }
+
+    public static void addBlueLives(Entity live) {
+        blueLives.add(live);
+    }
+
+
     public Entity getEntity(String id) {
-        return (Entity) entities.stream()
-                .filter(entity -> entity.getId().equals(id));
+//        return (Entity) entities.stream()
+//                .filter(entity -> entity.getId().equals(id));
+////        return entities.
+        Entity en = null;
+        for (Entity e : getEntities()) {
+            if (e.getId() == id) {
+                en = e;
+            }
+        }
+        return en;
     }
+
 //-------------------------------------------------
-
-
-    public static void reset(){
-
-
-    }
 
     public static void notUpPressed() {
 
@@ -98,9 +139,6 @@ public class GameState {
     }
 
     public static void notDownPressed() {
-//        System.out.println("getX(): " + getX() + "\n");
-        System.out.println("downPressed\n");
-
         down = false;
     }
     public static void setDownPressed() {
@@ -117,7 +155,7 @@ public class GameState {
         d = false;
     }
     public void setDPressed() {
-//        System.out.println("getX(): " + getX() + "\n");
+//       System.out.println("getX(): " + getX() + "\n");
         System.out.println("DNotPressed\n");
 
         d = true;
@@ -159,13 +197,6 @@ public class GameState {
 
         right = true;
     }
-    public static void escapePressed() {
-        escape = true;
-    }
-    public static void escapeNotPressed() {
-        escape =false;
-    }
-
     public static void coolDown() {
 
         if(coolDown <= 1) {
@@ -178,5 +209,22 @@ public class GameState {
 
     }
 
+    public void clearReadLives() {
+        redLives.clear();
+    }
+    public void clearBLueLives() {
+        blueLives.clear();
+    }
+    public void clearGreenLives() {
+        greenLives.clear();
+    }
+
+    public void clearEverything(){
+        clearReadLives();
+        clearBLueLives();
+        clearShells();
+        clearGreenLives();
+        getEntities().clear();
+    }
 
 }

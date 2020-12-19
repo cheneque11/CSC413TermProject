@@ -1,10 +1,11 @@
 package edu.csc413.tankgame.view;
 
-import edu.csc413.tankgame.GameDriver;
 import edu.csc413.tankgame.GameKeyListener;
 
-import javax.swing.*;import java.awt.*;
-import java.awt.event.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 
 /**
  * MainView is the primary view that contains and controls individual screens
@@ -102,27 +103,7 @@ public class MainView{
         mainJFrame.dispatchEvent(
                 new WindowEvent(mainJFrame, WindowEvent.WINDOW_CLOSING));
 
-    }
-    public static class PrintListener implements ActionListener {
 
-        //    StartMenuView startMenuView;
-        public MainView mainView;
-        public GameDriver gameDriver;
 
-        @Override
-        public void actionPerformed(ActionEvent event) {
-            String actionCommand = event.getActionCommand();
-            if (actionCommand.equals(StartMenuView.START_BUTTON_ACTION_COMMAND)) {
-
-                System.out.println("Start button pressed\n");
-
-            GameDriver.mainView.setScreen(MainView.Screen.RUN_GAME_SCREEN);
-//            gameDriver.runGame();
-//                mainView.setScreen(MainView.Screen.RUN_GAME_SCREEN);
-            } else if (actionCommand.equals((StartMenuView.EXIT_BUTTON_ACTION_COMMAND))) {
-                System.out.println("Exit button pressed\n");
-                GameDriver.mainView.closeGame();
-            }
         }
-    }
     }

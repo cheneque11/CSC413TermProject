@@ -1,9 +1,10 @@
 package edu.csc413.tankgame.view;
 
+import edu.csc413.tankgame.GameDriver;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.net.URL;
  */
 public class StartMenuView extends JPanel {
     public static final Dimension SCREEN_DIMENSIONS = new Dimension(510, 550);
+
     private static final String START_MENU_IMAGE_FILE = "title.png";
 
     private static final Dimension BUTTON_SIZE = new Dimension(200, 100);
@@ -28,6 +30,7 @@ public class StartMenuView extends JPanel {
 
     public static final String START_BUTTON_ACTION_COMMAND = "start_ac";
     public static final String EXIT_BUTTON_ACTION_COMMAND = "exit_ac";
+    public static final String RESTART_BUTTON_ACTION_COMMAND = "restart_ac";
 
     private final BufferedImage menuBackground;
 
@@ -56,7 +59,7 @@ public class StartMenuView extends JPanel {
         setLayout(null);
 //add action listenr instead of null
 
-        MainView.PrintListener listener = new MainView.PrintListener();
+        GameDriver.PrintListener listener = new GameDriver.PrintListener();
 
         addButton(startButtonText, START_BUTTON_BOUNDS,
                 START_BUTTON_ACTION_COMMAND, listener);
@@ -80,18 +83,6 @@ public class StartMenuView extends JPanel {
 
         g.drawImage(menuBackground, 0, 0, null);
     }
-
-//    private static class PrintListener implements ActionListener{
-//        @Override
-//        public void actionPerformed(ActionEvent event){
-//            String actionCommand = event.getActionCommand();
-//            if(actionCommand.equals(START_BUTTON_ACTION_COMMAND)){
-//                System.out.println("Start button pressed\n");
-//            }else if(actionCommand.equals((EXIT_BUTTON_ACTION_COMMAND))){
-//                System.out.println("Exit button pressed\n");
-//            }
-//        }
-//    }
 }
 
 

@@ -1,7 +1,7 @@
 package edu.csc413.tankgame;
 
 import edu.csc413.tankgame.model.GameState;
-import edu.csc413.tankgame.model.PlayerTank;
+import edu.csc413.tankgame.view.MainView;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -12,37 +12,37 @@ public class GameKeyListener implements KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
-    double x;
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if(key == KeyEvent.VK_UP){
+        if (key == KeyEvent.VK_UP) {
             GameState.setUpPressed();
         }
-        if(key == KeyEvent.VK_DOWN){
+        if (key == KeyEvent.VK_DOWN) {
             GameState.setDownPressed();
         }
-        if(key == KeyEvent.VK_LEFT){
+        if (key == KeyEvent.VK_LEFT) {
             GameState.setLeftPressed();
         }
-        if(key == KeyEvent.VK_RIGHT){
+        if (key == KeyEvent.VK_RIGHT) {
             GameState.setRightPressed();
         }
-        if(key == KeyEvent.VK_A) {
+        if (key == KeyEvent.VK_A) {
 
             System.out.println("A pressed\n");
 //            GameDriver.playerTank.coolDown();
             GameState.isShootPressed();
         }
-        if(key == KeyEvent.VK_D) {
+        if (key == KeyEvent.VK_D) {
 
             System.out.println("D pressed\n");
-            GameState.reset();
+
         }
 
-        if(key == KeyEvent.VK_ESCAPE){
+        if (key == KeyEvent.VK_ESCAPE) {
             System.out.println("esc pressed\n");
-            GameState.escapePressed();
+            MainView mainView = new MainView();
+            GameDriver.mainView.closeGame();
         }
 
     }
@@ -51,26 +51,24 @@ public class GameKeyListener implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
         int key = e.getKeyCode();
-        if(key == KeyEvent.VK_UP){
-            System.out.println("inside controltank\n up\n");
+        if (key == KeyEvent.VK_UP) {
+//                System.out.println("inside controltank\n up\n");
             GameState.notUpPressed();
+            GameDriver.gameState.getShells();
         }
-        if(key == KeyEvent.VK_DOWN){
+        if (key == KeyEvent.VK_DOWN) {
             GameState.notDownPressed();
         }
-        if(key == KeyEvent.VK_LEFT){
+        if (key == KeyEvent.VK_LEFT) {
             GameState.notLeftPressed();
         }
-        if(key == KeyEvent.VK_RIGHT){
+        if (key == KeyEvent.VK_RIGHT) {
             GameState.notRighttPressed();
         }
-        if(key == KeyEvent.VK_A){
+        if (key == KeyEvent.VK_A) {
 //            System.out.println("A realsed\n");
             GameState.notShootPressed();
         }
-        if(key == KeyEvent.VK_ESCAPE){
-//            System.out.println("esc pressed\n");
-            GameState.escapeNotPressed();
-        }
+
     }
 }

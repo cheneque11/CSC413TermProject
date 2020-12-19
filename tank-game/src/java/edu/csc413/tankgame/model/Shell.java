@@ -9,18 +9,17 @@ package edu.csc413.tankgame.model;
 // between the two classes so that the logic for e.g. moveForward, etc. are not duplicated.
 public class Shell extends Entity{
     public static final String SHELL_ID_PREFIX = "shell-";
-    private static final double MOVEMENT_SPEED = 4.0;
-
+    private static String tankId;
     private static long uniqueId = 0L;
 
-    public Shell(String id, double x, double y, double angle) {
-        super(id,x, y, angle);
-        id = getUniqueId();
 
+    public Shell(String id, double x, double y, double angle, String tankId) {
+        super(id,x, y, angle);
     }
+
+
     @Override
     public void move(GameState gameState){
-
 
         moveForward();
     }
@@ -28,7 +27,6 @@ public class Shell extends Entity{
     public double getXBound(){
 
         double x = getX() + 24.00;
-
         return x;
     }
 
@@ -38,6 +36,7 @@ public class Shell extends Entity{
         double y = getY() + 24.00;
         return y;
     }
+
     public static String getUniqueId() {
 
         String str = String.valueOf(uniqueId++);
@@ -52,5 +51,11 @@ public class Shell extends Entity{
         return SHELL_ID_PREFIX + uniqueId;
     }
 
+    public static void   setTankId(String tankId){
+        Shell.tankId = tankId;
+    }
 
+    public static String getTankId() {
+        return tankId;
+    }
 }

@@ -47,7 +47,7 @@ public class Walls extends Entity {
         return y;
     }
 
-    public static void addWalls(){
+    public static void getWalls(){
         int i = 0;
 
         System.out.println("walls!!" + WallImageInfo.readWalls().size() +"\n");

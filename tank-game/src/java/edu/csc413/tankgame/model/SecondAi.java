@@ -1,25 +1,32 @@
 package edu.csc413.tankgame.model;
 
 import edu.csc413.tankgame.GameDriver;
+import edu.csc413.tankgame.view.RunGameView;
 
 public class SecondAi extends Tank {
-    private static final double MOVEMENT_SPEED = 2.0;
 
     public SecondAi(String id, double x, double y, double angle) {
         super(id, x, y, angle);
 
     }
-
-    @Override
     public void move(GameState gameState) {
-
 //        super.move(gameState);
 
-//     PlayerTank playerTank = (PlayerTank) gameState.getEntity(GameState.PLAYER_TANK_ID);
+        PlayerTank playerTank = (PlayerTank) gameState.getEntity(GameState.PLAYER_TANK_ID);
+
+        if(playerTank != null) {
+            if (playerTank.getY() < getY() + 100) {
+                moveForward();
+                moveForward();
+                turnLeft();
+                moveBackward();
+                moveBackward();
+                turnRight();
+            }
 // To figure out what angle the AI tank needs to face, we'll use the change
 // in the x and y axes between the AI and player tanks.
-            double dx = GameDriver.playerTank.getX() - getX();
-            double dy = GameDriver.playerTank.getY() - getY();
+            double dx = playerTank.getX() - getX();
+            double dy = playerTank.getY() - getY();
 // atan2 applies arctangent to the ratio of the two provided values.
             double angleToPlayer = Math.atan2(dy, dx);
             double angleDifference = getAngle() - angleToPlayer;
@@ -40,13 +47,25 @@ public class SecondAi extends Tank {
             } else if (angleDifference > Math.toRadians(3.0)) {
                 turnLeft();
             }
-
-
-            if (GameState.coolDown < 0) {
-                shoot(gameState);
-                GameState.coolDown();
-
-            }
-            GameState.coolDown -= 1;
         }
+
+        if (GameState.coolDown < 0) {
+            shoot(gameState);
+            GameState.coolDown();
+
+        }
+        GameState.coolDown -= 1;
+    }
+
+    public void getLife() {
+
+        Lives.setTankId(getId());
+        Lives life = new Lives(GameState.GREEN_ID,
+                RunGameView.GREEN_INITIAL_X, RunGameView.GREEN_INITIAL_Y,
+                0,
+                Lives.getTankId()
+        );
+        GameDriver.gameState.addGreenLives(life);
+    }
+
     }
