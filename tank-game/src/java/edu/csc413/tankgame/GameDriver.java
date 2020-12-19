@@ -441,6 +441,11 @@ public class GameDriver {
                             RunGameView.SHELL_EXPLOSION_FRAME_DELAY,
                             entity2.getX(),
                             entity2.getY());
+                    runGameView.addAnimation(RunGameView.BIG_EXPLOSION_ANIMATION,
+                            RunGameView.BIG_EXPLOSION_FRAME_DELAY,
+                            700,
+                            20);
+
                 }
             }           /* WALL ON SHELL */
         }
@@ -459,6 +464,10 @@ public class GameDriver {
                     ((Walls) entity1).healthDecrease();
                     if(((Walls) entity1).healthDecrease() == 0){
 
+                        runGameView.addAnimation(RunGameView.BIG_EXPLOSION_ANIMATION,
+                                RunGameView.BIG_EXPLOSION_FRAME_DELAY,
+                                10,
+                                30);
                         gameState.removeEntity(entity1);
                         runGameView.removeDrawableEntity(entity1.getId());
                     }
@@ -490,6 +499,14 @@ public class GameDriver {
                 } else if (min == mUp) {
                     entity1.setY(entity1.getY() - min);
                 }
+                runGameView.addAnimation(RunGameView.BIG_EXPLOSION_ANIMATION,
+                        RunGameView.BIG_EXPLOSION_FRAME_DELAY,
+                        800,
+                        500);
+                runGameView.addAnimation(RunGameView.BIG_EXPLOSION_ANIMATION,
+                        RunGameView.BIG_EXPLOSION_FRAME_DELAY,
+                        800,
+                        30);
             }
             /* WALLS ON TANK COLLISON */
         }else if (entity1 instanceof Walls && entity2 instanceof Tank){

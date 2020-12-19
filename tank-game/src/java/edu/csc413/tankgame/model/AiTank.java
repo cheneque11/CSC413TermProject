@@ -27,6 +27,10 @@ public class AiTank extends Tank {
                 moveBackward();
                 moveBackward();
                 turnRight();
+            }else{
+                moveForward();
+                turnRight();
+                turnLeft();
             }
             double dx = playerTank.getX() - getX();
             double dy = playerTank.getY() - getY();
